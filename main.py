@@ -59,7 +59,7 @@ def keyfree(token):
                 return
         else:
             print(f'{Colorate.Horizontal(Colors.red_to_purple,"Key Không Tồn Tại hoặc Hết Hạn")}')
-            quit()
+        os.remove(key_file)
     taokey = requests.get('https://dhphuoc21.xyz/key').json()
     if taokey['status'] == 'success':
         key = taokey['key']
