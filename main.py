@@ -59,6 +59,7 @@ def keyfree(token):
                 return
         else:
             print(f'{Colorate.Horizontal(Colors.red_to_purple,"Key Không Tồn Tại hoặc Hết Hạn")}')
+            return
     taokey = requests.get('https://dhphuoc21.xyz/key').json()
     if taokey['status'] == 'success':
         key = taokey['key']
@@ -69,6 +70,7 @@ def keyfree(token):
             print(f'\n{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.blue_to_purple,"Link Vượt Key Là")}{trang}: {luc}{get}')
     else:
         print(f'{Colorate.Horizontal(Colors.red_to_purple,"Server Key Free Bị Lỗi Rồi Xài Phí Đi")}')
+        return
     nhapkey = input(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_cyan,"Nhập Key Đã Vượt")}: ')
     check = requests.post('https://www.dhphuoc21.xyz/key',data={'key': nhapkey}).json()
     if check['status'] == 'success':
