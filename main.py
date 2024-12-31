@@ -36,6 +36,7 @@ def Ketnoi():
 def keyfree(token):
     key_file = "key.txt"
     nhapkey = None
+    dem = 0
     if os.path.exists(key_file):
         with open(key_file, "r") as file:
             nhapkey = file.read().strip()
@@ -50,56 +51,57 @@ def keyfree(token):
             print(f'{Colorate.Horizontal(Colors.purple_to_blue,"│")}{Colorate.Horizontal(Colors.blue_to_cyan,"        Thông Tin key        ")}{Colorate.Horizontal(Colors.blue_to_purple,"  │")}')
             print(f'{Colorate.Horizontal(Colors.purple_to_blue,"└───────────────────────────────┘")}')
             print(f'{red}[{trang}<>{red}] {luc}Số IP Chủ Key{trang}: {vang}{ip}')
-            print(f'{red}[{trang}<>{red}] {luc}Key Tool{trang}: {vang}{keycode}{nhapkey[:0]}')
+            print(f'{red}[{trang}<>{red}] {luc}Key Tool{trang}: {vang}{keycode}')
             print(f'{red}[{trang}<>{red}] {luc}Họ Và Tên Chủ key{trang}: {vang}{name}')
             print(f'{red}[{trang}<>{red}] {luc}Số Giờ Còn Lại{trang}: {vang}{time}')
             print(red + "-" * 70)
-            with open(key_file, "w") as file:
-                file.write(nhapkey)
-                return
-        else:
-            print(f'{Colorate.Horizontal(Colors.red_to_purple,"Key Không Tồn Tại hoặc Hết Hạn")}')
-            os.remove(key_file)
+            return
+        print(f'{Colorate.Horizontal(Colors.red_to_purple,"Key Không Tồn Tại hoặc Hết Hạn")}')
+        os.remove(key_file)
     taokey = requests.get('https://dhphuoc21.xyz/key').json()
     if taokey['status'] == 'success':
         key = taokey['key']
-        link = requests.get(f'https://yeumoney.com/QL_api.php?token={token}&format=json&url=https://www.dhphuoc21.xyz/test.php?key={key}').json()
+        link = requests.get(f'https://link4m.co/api-shorten/v2?api={token}&url=https://www.dhphuoc21.xyz/test.php?key={key}').json()
+        print(link)
         if link['status'] == 'success':
             get = link['shortenedUrl']
             banner()
-            print(f'\n{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.blue_to_purple,"Link Vượt Key Là")}{trang}: {luc}{get}')
+            print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.yellow_to_green,"Key Vô Tool Là")}{trang}: {luc}DHP07')
+            print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.blue_to_purple,"Link Vượt Key Là")}{trang}: {luc}{get}')
+            while dem < 3:
+                nhapkey = input(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_cyan,"Nhập Key Đã Vượt")}: ')
+                check = requests.post('https://www.dhphuoc21.xyz/key', data={'key': nhapkey}).json()
+                if check['status'] == 'success':
+                    name = check['name']
+                    ip = check['ip']
+                    time = check['time']
+                    keycode = nhapkey[:3] + '*' * 10
+                    banner()
+                    print(f'{Colorate.Horizontal(Colors.purple_to_blue,"┌───────────────────────────────┐")}')
+                    print(f'{Colorate.Horizontal(Colors.purple_to_blue,"│")}{Colorate.Horizontal(Colors.blue_to_cyan,"        Thông Tin key        ")}{Colorate.Horizontal(Colors.blue_to_purple,"  │")}')
+                    print(f'{Colorate.Horizontal(Colors.purple_to_blue,"└───────────────────────────────┘")}')
+                    print(f'{red}[{trang}<>{red}] {luc}Số IP Chủ Key{trang}: {vang}{ip}')
+                    print(f'{red}[{trang}<>{red}] {luc}Key Tool{trang}: {vang}{keycode}')
+                    print(f'{red}[{trang}<>{red}] {luc}Họ Và Tên Chủ key{trang}: {vang}{name}')
+                    print(f'{red}[{trang}<>{red}] {luc}Số Giờ Còn Lại{trang}: {vang}{time}')
+                    print(red + "-" * 70)
+                    with open(key_file, "w") as file:
+                        file.write(nhapkey)
+                    return
+                else:
+                    dem += 1
+                    print(f'{Colorate.Horizontal(Colors.red_to_purple,f"Key Không Tồn Tại hoặc Hết Hạn, Đã Nhập {dem} Lần")}')
+                    if dem == 3:
+                        print(f'{Colorate.Horizontal(Colors.red_to_purple,"Bạn Đã Nhập Sai Key 3 Lần Rồi!")}')
+                        quit()
+        else:
+            print(f'{Colorate.Horizontal(Colors.red_to_purple,"Server Key Free Bị Lỗi Rồi Xài Phí Đi")}')
+            quit()
     else:
         print(f'{Colorate.Horizontal(Colors.red_to_purple,"Server Key Free Bị Lỗi Rồi Xài Phí Đi")}')
         quit()
-    dem = 0
-    while dem < 3:
-        nhapkey = input(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_cyan,"Nhập Key Đã Vượt")}: ')
-        check = requests.post('https://www.dhphuoc21.xyz/key', data={'key': nhapkey}).json()
-        if check['status'] == 'success':
-            name = check['name']
-            ip = check['ip']
-            time = check['time']
-            keycode = nhapkey[:3] + '*' * 10
-            banner()
-            print(f'{Colorate.Horizontal(Colors.purple_to_blue,"┌───────────────────────────────┐")}')
-            print(f'{Colorate.Horizontal(Colors.purple_to_blue,"│")}{Colorate.Horizontal(Colors.blue_to_cyan,"        Thông Tin key        ")}{Colorate.Horizontal(Colors.blue_to_purple,"  │")}')
-            print(f'{Colorate.Horizontal(Colors.purple_to_blue,"└───────────────────────────────┘")}')
-            print(f'{red}[{trang}<>{red}] {luc}Số IP Chủ Key{trang}: {vang}{ip}')
-            print(f'{red}[{trang}<>{red}] {luc}Key Tool{trang}: {vang}{keycode}{nhapkey[:0]}')
-            print(f'{red}[{trang}<>{red}] {luc}Họ Và Tên Chủ key{trang}: {vang}{name}')
-            print(f'{red}[{trang}<>{red}] {luc}Số Giờ Còn Lại{trang}: {vang}{time}')
-            print(red + "-" * 70)
-            with open(key_file, "w") as file:
-                file.write(nhapkey)
-            return
-        else:
-            dem += 1
-            print(f'{Colorate.Horizontal(Colors.red_to_purple,f"Key Không Tồn Tại hoặc Hết Hạn, Đã Nhập {dem} Lần")}')
-            if dem == 3:
-                print(f'{Colorate.Horizontal(Colors.red_to_purple,"Bạn Đã Nhập Sai Key 3 Lần Rồi!")}')
-                quit()
 banner()
-keyfree('41a298c8aedb12765b2d4f23cd60f7fee0da6cb85bfb2317e37840f7ea20fd16')
+keyfree('6773d114338761398c076894')
 print(f'{Colorate.Horizontal(Colors.purple_to_blue,"┌───────────────────────────────┐")}')
 print(f'{Colorate.Horizontal(Colors.purple_to_blue,"│")}{Colorate.Horizontal(Colors.blue_to_cyan,"         Trao Đổi Sub        ")}{Colorate.Horizontal(Colors.blue_to_purple,"  │")}')
 print(f'{Colorate.Horizontal(Colors.purple_to_blue,"└───────────────────────────────┘")}')
@@ -113,8 +115,17 @@ print(f'{Colorate.Horizontal(Colors.purple_to_blue,"│")}{Colorate.Horizontal(C
 print(f'{Colorate.Horizontal(Colors.purple_to_blue,"└───────────────────────────────┘")}')
 print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}2.1{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Facebook Thường")}')
 print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}2.2{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Instagram")} {vang}({red}bảo Trì{vang})')
-print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}2.3{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Facebook Page")}')
+print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}2.3{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Facebook Page")} {vang}({red}bảo Trì{vang})')
 print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}2.4{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ TikTok")}')
+print(red+"-"*70)
+print(f'{Colorate.Horizontal(Colors.purple_to_blue,"┌───────────────────────────────┐")}')
+print(f'{Colorate.Horizontal(Colors.purple_to_blue,"│")}{Colorate.Horizontal(Colors.blue_to_cyan,"        Buff Tương Tác        ")}{Colorate.Horizontal(Colors.blue_to_purple," │")}')
+print(f'{Colorate.Horizontal(Colors.purple_to_blue,"└───────────────────────────────┘")}')
+print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}3.1{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Tăng View Story Page")} {vang}({red}bảo Trì{vang})')
+print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}3.2{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Tăng Follow Page")} {vang}({red}bảo Trì{vang})')
+print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}3.3{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Tăng Comment Page")} {vang}({red}bảo Trì{vang})')
+print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}3.4{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Zefoy Selenium")} {vang}({red}bảo Trì{vang})')
+print(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Nhập")} {red}[{vang}3.5{red}] {Colorate.Horizontal(Colors.green_to_yellow,"Để Chọn Chế Độ Tăng Share Ảo")} {vang}({red}bảo Trì{vang})')
 print(red+"-"*70)
 chon = input(f'{red}[{trang}<>{red}] {Colorate.Horizontal(Colors.blue_to_white,"Chọn Chế Độ")}: ')
 try:
@@ -134,6 +145,16 @@ try:
         run = requests.get(f'https://raw.githubusercontent.com/dhphuoc/maindhp39/refs/heads/main/ttcpage.py').text 
     elif chon == '2.4':
         run = requests.get(f'https://raw.githubusercontent.com/dhphuoc/maindhp39/refs/heads/main/ttctiktok.py').text 
+    elif chon == '3.1':
+        run = requests.get(f'').text
+    elif chon == '3.2':
+        run = requests.get(f'').text
+    elif chon == '3.3':
+        run = requests.get(f'').text 
+    elif chon == '3.4':
+        run = requests.get(f'').text 
+    elif chon == '3.5':
+        run = requests.get(f'').text
     else:
         run = print(f'{Colorate.Horizontal(Colors.red_to_purple,"Lựa Chọn Không Xác Định")}')
 except:
